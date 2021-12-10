@@ -109,7 +109,7 @@ int main(int argc, const char** argv) {
         degree = 0;
     }
 
-    for (int i = 0; i < str - 1; i++) {
+    /*for (int i = 0; i < str - 1; i++) {
         if (verDeg[i] == 1) {
             for (int j = 0; j < count_rib_graph; j++) {
                 if (two_dem_in_one_dem[i*count_rib_graph + j])
@@ -117,7 +117,7 @@ int main(int argc, const char** argv) {
                         verDeg[i] = 0;
             }
         }
-    }
+    }*/
     
     int degreeVertices = atoi(argv[1]);
     char* arrVer = (char *)calloc(BEGIN_LENGTH_ARRVER, sizeof(char));
@@ -140,7 +140,7 @@ int main(int argc, const char** argv) {
         }
     }
     addAdjVer('\0', arrVer, &curInd, &bouInd);
-
+    
     int i = 0;
     int curVer = -1;
     while (arrVer[i] != '\0') {
@@ -152,7 +152,7 @@ int main(int argc, const char** argv) {
             }
         }
         if (degreeVertices == 1) {
-            printf("%c%c", arrVer[i], arrVer[i]);
+            printf("%c", arrVer[i]);
             printf("\n");
         } else {
             comboVer(arrVer, i, i + degreeVertices - 1);
@@ -192,9 +192,7 @@ int addMemory (char* arr, int* bouInd) {
 
 void comboVer (char* arr, int beginInd, int endInd) {
     for (int i = beginInd; i <= endInd; i++) {
-        for (int j = i + 1; j <= endInd; j++) {
-            printf("%c%c ", arr[i], arr[j]);
-        }
+            printf("%c", arr[i]);
     }
     printf("\n");
 }
