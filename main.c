@@ -1,20 +1,4 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <ctype.h>
-#include <string.h>
-
-#define COLUMN_FINAL_ARR 2
-#define BEGIN_LENGTH_ARRVER 3
-
-#define NOT_OPEN_FILE (1)
-#define WRONG_MATRIX (2)
-#define FAILED_ALLOCATE_MEMORY (3)
-#define ERR_ARGS_COUNT (4)
-
-int addMemory (char* arr, int* bouInd);
-int addAdjVer (char c, char* arr, int* curInd, int* bouInd);
-void comboVer (char* arr, int beginInd, int endInd);
-int checkLoop (int* arr, int indRib, int countRib, int str);
+#include "untils.h"
 
 int main(int argc, const char** argv) {
 
@@ -145,8 +129,8 @@ int main(int argc, const char** argv) {
     int curVer = -1;
     while (arrVer[i] != '\0') {
         for (int j = curVer + 1; j < str - 1; j++) {
-            if (verDeg[j] == degreeVertices) {
-                printf("Смежные ребра для вершины с номером %d: ", j);
+            if ((verDeg[j] == degreeVertices) && (degreeVertices != 0)) {
+                printf("Смежные ребра к вершинам с номером %d: ", j);
                 curVer = j;
                 break;
             }
@@ -155,7 +139,7 @@ int main(int argc, const char** argv) {
             printf("%c", arrVer[i]);
             printf("\n");
         } else {
-            comboVer(arrVer, i, i + degreeVertices - 1);
+            outputVer(arrVer, i, i + degreeVertices - 1);
         }
         i += degreeVertices + 1;
     }
@@ -168,45 +152,4 @@ int main(int argc, const char** argv) {
     free(verDeg);
     free(arrVer); 
     return 0;
-}
-
-int addAdjVer (char c, char* arr, int* curInd, int* bouInd) {
-    int errMemory;
-    if (*bouInd == *curInd) {
-        errMemory = addMemory(arr, bouInd);
-        if (errMemory == FAILED_ALLOCATE_MEMORY)
-            return FAILED_ALLOCATE_MEMORY;
-    }
-    arr[*curInd] = c;
-    *curInd += 1;
-    return 0;
-}
-
-int addMemory (char* arr, int* bouInd) {
-    arr = (char*)realloc(arr, (*bouInd + 3)*sizeof(char));
-    if (arr == NULL) 
-        return FAILED_ALLOCATE_MEMORY;
-    *bouInd += 1;
-    return 0;
-}
-
-void comboVer (char* arr, int beginInd, int endInd) {
-    for (int i = beginInd; i <= endInd; i++) {
-            printf("%c", arr[i]);
-    }
-    printf("\n");
-}
-
-int checkLoop (int* arr, int indRib, int countRib, int str) {
-    int flag = 0;
-    for (int i = 0; i < str - 1; i++) {
-        if (arr[indRib + countRib * i]) {
-            flag++;
-        }
-    }
-    if (flag == 1) {
-        return 1;
-    } else {
-        return 0;
-    }
 }
